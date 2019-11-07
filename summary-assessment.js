@@ -60,6 +60,9 @@ function each(coll, f) {
   
   function wordLengths(str) {
       // TODO: your code here 
+      return map(str.split(" "),function(element){// 
+      	return element.length;
+      })
   }
   
   //=============================================================================
@@ -73,6 +76,14 @@ function each(coll, f) {
   
   function countOccurrences(string, character) {
       // your code is here
+      var acc=0;
+      each(string,function(element){
+      	if(element === character){
+      		 acc++
+      	}
+      })
+      return acc;
+
   }
   
   //=============================================================================
@@ -84,7 +95,12 @@ function each(coll, f) {
   // wordsLongerThanThree("Hello Mad World") //["Hello", "World"]
   
   function wordsLongerThanThree(str) {
-      // TODO: your code here 
+      // TODO: your code here
+      var array=str.split(" ") 
+      return filter(array,function(element){
+      		     return  element.length > 3;
+      		   
+      })
   }
   
   //=============================================================================
@@ -100,6 +116,12 @@ function each(coll, f) {
   
   function repeatString(str, count) { 
    // TODO: your code here 
+ 
+   if(count===0){
+   	return "";
+   }
+   count--
+   return str + repeatString(str, count)
   } 
    
   
@@ -129,7 +151,37 @@ function each(coll, f) {
   // pizza.eatSlice();
   
   // Write your code here .....
-  
+
+  function makePizza(crust, size, numberOfSlice){
+  	var ingredients=[];
+
+  	return{
+  			crust:crust,
+  			size:size,
+  			numberOfSlice:numberOfSlice,
+  			addIngredients:function(ingredient){
+  				 ingredients.push(ingredient);
+  			},
+  			displayIngredients:function(){
+  				return ingredients.join(",");
+  			},
+  			bakePizza:function(){
+  				 setTimeout(window.alert, 2000 ,"Your "+ crust+" "+ size+" "+numberOfSlice+" is done") 
+  			},
+  			eatSlice:function(){
+  				if(numberOfSlice>0){
+  					 numberOfSlice-=1;
+  					 return "1 slice eating"
+  				}
+  				else{
+  					return "no more pizza"
+  				}
+  			}
+
+
+
+  	}
+  }
   //=============================================================================
   /*                                  Q6                                      */
   //=============================================================================
@@ -153,9 +205,33 @@ function each(coll, f) {
   */
   
   // Now, to make sure that you are actually reading, make a comment below this and type: Yes I am
-  
+  //Yes I am
   // Write your code here .....
+  function ReadingList(currentRead){// initialize whith book that is reading currently
+
+  		return {
+  			read:0,
+  			unRead:0,
+  			currentRead:currentRead,
+  			toRead:[],
+  			readBooks:[],
+
+  			addBook:addBook,
+  			finishCurrentBook:finishCurrentBook
+  		}
+  }
   
+  function addBook(name){
+  		this.toRead.push(name);
+  		this.unRead=this.unRead + 1;
+  }
+  function finishCurrentBook(){
+  		this.readBooks.push(this.currentRead)  /// add current book to readed list 
+  		this.read=this.read+1;
+  		this.unRead=this.unRead - 1;
+  		this.currentRead=this.toRead[0];
+  		this.toRead.shift();     // delete the first book from list to read
+  		}                 
   //=============================================================================
   /*                                  Q7                                       */
   //=============================================================================
@@ -175,6 +251,31 @@ function each(coll, f) {
   //  safe('money','small') => "watch gold-bar money"
   
   // Write your code here .....
+  function makeSafe(size){
+  	var size=size;
+  	 var storageSize={
+  	 			big:3,
+  	 			medium:2,
+  	 			small:1,
+  	 			}
+  	var storage=[];
+  	  
+  	 	var addItem =function  (item, itemSize){
+  	 		if(size < storageSize[itemSize]){
+  	 			return "Can't fit";
+  	 		}
+  	 		else//(size > storage[itemSize]){
+  	 			{size=size-storageSize[itemSize];
+  	 				storage.push(item);
+  	 			if(size===0){
+  	 				return storage.join(" ")
+  	 			}
+  	 		}
+
+  	 	}
+  	 	return addItem;
+  	 
+  }
   
   //=============================================================================
   /*                                  Q8                                       */
